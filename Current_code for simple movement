@@ -1,0 +1,34 @@
+setStepMode=function(stepVelocity,stepAmplitude,stepHeight,movementDirection,rotationMode,movementStrength)
+    sim.setScriptSimulationParameter(sim.handle_tree,'stepVelocity',stepVelocity)
+    sim.setScriptSimulationParameter(sim.handle_tree,'stepAmplitude',stepAmplitude)
+    sim.setScriptSimulationParameter(sim.handle_tree,'stepHeight',stepHeight)
+    sim.setScriptSimulationParameter(sim.handle_tree,'movementDirection',movementDirection)
+    sim.setScriptSimulationParameter(sim.handle_tree,'rotationMode',rotationMode)
+    sim.setScriptSimulationParameter(sim.handle_tree,'movementStrength',movementStrength)
+end
+
+
+
+function sysCall_threadmain()
+    antBase=sim.getObjectHandle('Ant_base')
+    legBase=sim.getObjectHandle('Ant_legBase')
+    sizeFactor=sim.getObjectSizeFactor(antBase)
+    vel=0.05
+    accel=0.05
+    initialP={0,0,0}
+    initialO={0,0,0}
+    initialP[3]=initialP[3]-0.03*sizeFactor
+    sim.moveToPosition(legBase,antBase,initialP,initialO,vel,accel)
+
+    stepHeight=0.04*sizeFactor
+    maxWalkingStepSize=0.08*sizeFactor
+    walkingVel=0.5
+
+    setStepMode(walkingVel,maxWalkingStepSize,stepHeight,0,0,1)
+    sim.wait(12)
+    for i=1,27,1 do
+        setStepMode(walkingVel,maxWalkingStepSize,stepHeight,1,0,1)
+        sim.wait(0.5)
+    end
+
+end
