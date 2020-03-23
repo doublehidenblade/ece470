@@ -1,0 +1,22 @@
+function sysCall_init()
+    -- do some initialization here
+end
+
+function sysCall_actuation()
+    -- put your actuation code here
+end
+
+function sysCall_sensing()
+    -- put your sensing code here
+end
+
+function sysCall_cleanup()
+    -- do some clean-up here
+end
+
+-- See the user manual or the available code snippets for additional callback functions and details
+if (sim_call_type==sim.syscb_init) then
+    h=sim.getObjectAssociatedWithScript(sim.handle_self)
+    sim.setObjectFloatParameter(h,sim.shapefloatparam_init_velocity_x,3)
+    sim.setObjectFloatParameter(h,sim.shapefloatparam_init_velocity_z,3)
+end
